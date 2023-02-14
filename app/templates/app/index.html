@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %} 
+{% load humanize %} 
+ 
+{% block content %} 
+ <!-- 追加 --> 
+{% if 'fav_products' in request.path %} 
+<div class="fav-products-title"> 
+  お気に⼊り商品 
+</div> 
+{% endif %} 
+ 
+
+
+<div class="product-container"> 
+  {% for product in products %} 
+    <div class="product"> 
+      <a href="{% url 'app:detail' product.id %}"> 
+        <img src="{{ product.image.url }}" class="product-img"> 
+      </a> 
+      <div class="product-info"> 
+        <div class="product-name">{{ product.name }}</div> 
+        <div class="product-price"> 
+          Point: {{ product.price | intcomma }} 
+        </div> 
+      </div> 
+    </div> 
+  {% endfor %} 
+</div> 
+ 
+{% endblock %}

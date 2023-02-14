@@ -1,0 +1,47 @@
+{% load static %} 
+{% load humanize %} 
+ 
+<!DOCTYPE html>
+<html>
+<head> 
+ 
+  <small><title>デモサイト</title></small>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' 
+%}">
+</head>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<body> 
+  <header> 
+    <div class="container"> 
+      <h1><a href="{% url 'app:index' %}">デモサイト</a></h1> 
+      <div class="header-menu"> 
+        {% if request.user.is_authenticated %} 
+          <span>Point: {{ user.point | intcomma }}</span> 
+          <span><a href="{% url 'app:fav_products' %}">お気に⼊り</a></span>  
+          <span><a href="{% url 'app:cart' %}">カート</a></span> 
+          <span><a href="">注⽂履歴</a></span> 
+          <span><a href="{% url 'app:logout' %}">ログアウト</a></span> 
+          <!-- 注⽂履歴のリンクを追加 --> 
+          <span><a href="{% url 'app:cart' %}">カート</a></span> 
+          <span><a href="{% url 'app:order_history' %}">注⽂履歴</a></span>
+
+        {% else %} 
+          <span><a href="{% url 'app:login' %}">ログイン</a></span> 
+          <span><a href="{% url 'app:signup' %}">新規登録</a></span> 
+        {% endif %} 
+      </div> 
+    </div> 
+  </header> 
+  <div class="container"> 
+    {% for message in messages %} 
+      <p class="message-{{ message.tags }}">{{ message }}</p> 
+    {% endfor %} 
+
+
+    {% block content %}{% endblock %} 
+    
+
+  </div>
+</body>
+</html>

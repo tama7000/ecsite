@@ -1,0 +1,83 @@
+{% extends 'app/base.html' %} 
+ 
+{% load humanize %} 
+
+{% load filters %}  <!-- filters.pyファイルをロードする --> 
+ 
+{% block content %} 
+ 
+<div class="cart"> 
+ 
+  <h2>カート</h2>
+  
+ 
+  <!-- 追加 --> 
+  <div class="purchase-form"> 
+    <form action="{% url 'app:cart' %}" method="POST"> 
+      {% csrf_token %} 
+      <div class="purchase-form-container"> 
+        <div class="purchase-form-address"> 
+          <div> 
+            {{ purchase_form.zip_code.label_tag }} 
+            {{ purchase_form.zip_code }} 
+            <input type="submit" name="search_address" value="住所を検索"> 
+          </div> 
+          <div> 
+            {{ purchase_form.address.label_tag }} 
+            {{ purchase_form.address }} 
+          </div> 
+        </div> 
+        <div class="purchase-form-pay"> 
+          請求額: {{ total_price | intcomma }} 
+          <input type="submit" name="buy_product" class="btn btn-primary" value="購⼊する"> 
+        </div> 
+        
+      </div> 
+    </form> 
+  </div> 
+  
+  {% for product, num in cart_products.items %} 
+    <div class="order-product"> 
+      <div class="order-product-image"> 
+        <a href="{% url 'app:detail' product.id %}"> 
+          <img src="{{ product.image.url }}" class="product-img"> 
+        </a> 
+      </div> 
+      <div class="order-product-info"> 
+        <h2>{{ product.name }}</h2> 
+        <div> 
+          価格: 
+          <span class="info-value"> 
+            {{ product.price |intcomma }} 
+          </span> 
+        </div> 
+        <div> 
+          個数:<span class="info-value">{{ num | intcomma }}</span> 
+        </div> 
+
+        <!-- ⼩計を追加する --> 
+    <hr> 
+    <div> 
+      ⼩計: 
+      <span class="info-value"> 
+        {% multiply product.price num %} 
+      </span> 
+    </div>
+
+    <!-- formを追加 --> 
+  <div class="order-product-amount-form"> 
+    <form action="{% url 'app:change_product_amount' %}" method="POST"> 
+      {% csrf_token %} 
+      <input type="hidden" name="product_id" value="{{ product.id }}"> 
+      <input type="submit" name="action_remove" value="1つ減らす"> 
+      <input type="submit" name="action_add" value="1つ増やす"> 
+    </form> 
+  </div>
+
+      </div> 
+    </div> 
+  {% endfor %} 
+ 
+</div> 
+
+{% endblock %} 
