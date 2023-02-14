@@ -2,6 +2,8 @@ import os
 
 
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -15,7 +17,7 @@ SECRET_KEY = '6zn(yepjohhp#8%@zce-mzz0m34()&o5la84faj#d&8q@rg(w1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
 
 # Application definition
@@ -129,3 +131,5 @@ MEDIA_URL = '/media/'
 
 # セッションを毎回更新する 
 SESSION_SAVE_EVERY_REQUEST = True
+
+STATIC_ROOT = BASE_DIR / "static"
