@@ -1,5 +1,5 @@
 import os
-path = 0
+from django.urls import path
 
 
 
