@@ -133,4 +133,4 @@ MEDIA_URL = '/media/'
 # セッションを毎回更新する 
 SESSION_SAVE_EVERY_REQUEST = True
 
-#STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
