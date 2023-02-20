@@ -12,8 +12,11 @@ from .models import Sale  # 追加
 from .forms import PurchaseForm  # 追加
 
 import json  # 追加
-import requests  # 追加 
 
+import sys
+sys.path.append('\users\yu-mizuno\desktop\log_\log3\ecsite\myvenv\lib\site-packages')
+
+import requests  # 追加 
 @login_required
 @require_POST
 def toggle_fav_product_status(request): 
